@@ -8,15 +8,15 @@
             <img (click)="changeTheme()" src="../../assets/images/icon-sun.svg" alt="light theme">
             }
         </header>
-        <input class="newtask  field" type="text" placeholder="Create a new todo..." (keydown.enter)="addTask(newTask)"
-            [(ngModel)]="newTask">
+        <input class="newtask  field" type="text" placeholder="Create a new todo..." (keydown.enter)="addTask(newTaskInput)"
+            [(ngModel)]="newTaskInput">
 
         <ul class="list">
-            @for (task of (showTaskList); track $index) {
+            @for (task of showTaskList$; track $index) {
             @if(activeStatus === "all"){
 
             <li class="task field">
-                <input class="task__check" type="checkbox" [(ngModel)]="task.checked" (click)="storeChecked()">
+                <input class="task__check" type="checkbox" [(ngModel)]="task.checked" (ngModelChange)="storeChecked()">
                 <input [ngClass]="{'task__text--checked': task.checked}" [(ngModel)]="task.taskName" class="task__text"
                     type="text" value={{task.taskName}}>
                 <img (click)="delete($index)" class="task__img" src="../../assets/images/icon-cross.svg" alt="Close">
@@ -25,7 +25,7 @@
             @if(activeStatus === "active" && !task.checked){
 
             <li class="task field">
-                <input class="task__check" type="checkbox" [(ngModel)]="task.checked" (click)="storeChecked()">
+                <input class="task__check" type="checkbox" [(ngModel)]="task.checked" (ngModelChange)="storeChecked()">
                 <input [ngClass]="{'task__text--checked': task.checked}" [(ngModel)]="task.taskName" class="task__text" type="text"
                     value={{task.taskName}}>
                 <img (click)="delete($index)" class="task__img" src="../../assets/images/icon-cross.svg" alt="Close">
@@ -35,7 +35,7 @@
             @if(activeStatus === "complete" && task.checked){
 
             <li class="task field">
-                <input class="task__check" type="checkbox" [(ngModel)]="task.checked" (click)="storeChecked()">
+                <input class="task__check" type="checkbox" [(ngModel)]="task.checked" (ngModelChange)="storeChecked()">
                 <input [ngClass]="{'task__text--checked': task.checked}" class="task__text" type="text"
                     value={{task.taskName}} readonly>
                 <img (click)="delete($index)" class="task__img" src="../../assets/images/icon-cross.svg" alt="Close">
@@ -44,7 +44,7 @@
             }
             }
             <div class="info field">
-                <span class="info__left">Faltan varios</span>
+                <span class="info__left">{{leftCounter}} item left</span>
                 <span class="info__completeclear">Clear Completed</span>
             </div>
         </ul>

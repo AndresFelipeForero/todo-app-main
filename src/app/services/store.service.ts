@@ -6,16 +6,38 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class StoreService {
 
-  private taskStore = new BehaviorSubject<any[]>([])
+  private taskStore$ = new BehaviorSubject<any[]>([])
 
-  constructor() { }
-
-  getTask(){
-    return this.taskStore.asObservable();
+  constructor() { 
+    let tasksStore = localStorage.getItem('taksStore')
+    if (tasksStore) {
+      this.taskStore$.next(JSON.parse(tasksStore))
+    }
   }
 
-  postTask(task:any){
-    let current = this.taskStore.getValue()
-    this.taskStore.next([task, ...current])
+  getTaskList(){
+    return this.taskStore$.asObservable();
+  }
+
+  private setProducts(taskList: any[]) {
+    this.taskStore$.next([...taskList]);
+    localStorage.setItem('taksStore', JSON.stringify(taskList))
+  }
+  
+
+  addTask(task: any){
+    let current = this.taskStore$.getValue()
+    this.setProducts([task, ...current])
+  }
+
+  storeChecked(){
+    let current = this.taskStore$.getValue()
+    this.setProducts(current)
+  }
+
+  delete(index: number){
+    let current = this.taskStore$.getValue() 
+    current.splice(index, 1)
+    localStorage.setItem("taskStorage", JSON.stringify(current))
   }
 }
