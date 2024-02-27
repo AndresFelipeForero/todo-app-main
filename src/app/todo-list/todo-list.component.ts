@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms'
 import { CommonModule, NgFor } from '@angular/common';
-import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-todo-list',
@@ -18,14 +17,14 @@ export class TodoListComponent {
   leftCounter: number = 0;
   
   showTaskList: any[] = [];
-  taskList: Array<any> = [
-    // { checked: true, taskName: 'comprar carne', isOnlyRead: true },
-    // { checked: false, taskName: 'Fumigar el Platano', isOnlyRead: true },
-    // { checked: true, taskName: 'Pagar el Internet', isOnlyRead: false },
-  ];
+ 
 
   ngOnInit() {
-    this.showTaskList = this.taskList;
+    let store = localStorage.getItem("taskStorage")
+    if (store) {
+      this.showTaskList = JSON.parse(store);
+      console.log(this.showTaskList)
+    }
   }
 
   addTask(taskName: string) {
@@ -36,6 +35,7 @@ export class TodoListComponent {
     };
     this.showTaskList = [taskObject, ...this.showTaskList];
     this.newTask = '';
+    localStorage.setItem("taskStorage", JSON.stringify(this.showTaskList))
   }
 
   statusActive(status: string) {
@@ -44,9 +44,17 @@ export class TodoListComponent {
 
   delete(number:number){
     this.showTaskList.splice(number, 1)
+    localStorage.setItem("taskStorage", JSON.stringify(this.showTaskList))
   }
 
   changeTheme(){
     this.changedTheme = !this.changedTheme
+  }
+
+  storeChecked(){
+    setTimeout(() =>{
+
+      localStorage.setItem("taskStorage", JSON.stringify(this.showTaskList))
+    }, 1)
   }
 }

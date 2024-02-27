@@ -1,11 +1,11 @@
 <div class="container">
     <div class="contain">
         <header>
-            <h1>T O D O</h1>
+            <h1>T&nbsp;O&nbsp;D&nbsp;O</h1>
             @if (!changedTheme) {
-                <img (click)="changeTheme()" src="../../assets/images/icon-moon.svg" alt="night theme">
+            <img (click)="changeTheme()" src="../../assets/images/icon-moon.svg" alt="night theme">
             }@else{
-                <img (click)="changeTheme()" src="../../assets/images/icon-sun.svg" alt="light theme">
+            <img (click)="changeTheme()" src="../../assets/images/icon-sun.svg" alt="light theme">
             }
         </header>
         <input class="newtask  field" type="text" placeholder="Create a new todo..." (keydown.enter)="addTask(newTask)"
@@ -13,33 +13,35 @@
 
         <ul class="list">
             @for (task of (showTaskList); track $index) {
-                @if(activeStatus === "all"){
+            @if(activeStatus === "all"){
 
-                    <li class="task field">
-                        <input class="task__check" type="checkbox" [(ngModel)]="task.checked">
-                        <input [ngClass]="{'task__text--checked': task.checked}" class="task__text" type="text"  value={{task.taskName}}>
-                        <img (click)="delete($index)" class="task__img" src="../../assets/images/icon-cross.svg" alt="Close">
-        
-                    </li>
-                }
-                @if(activeStatus === "active" && !task.checked){
+            <li class="task field">
+                <input class="task__check" type="checkbox" [(ngModel)]="task.checked" (click)="storeChecked()">
+                <input [ngClass]="{'task__text--checked': task.checked}" [(ngModel)]="task.taskName" class="task__text"
+                    type="text" value={{task.taskName}}>
+                <img (click)="delete($index)" class="task__img" src="../../assets/images/icon-cross.svg" alt="Close">
+            </li>
+            }
+            @if(activeStatus === "active" && !task.checked){
 
-                    <li class="task field">
-                        <input class="task__check" type="checkbox" [(ngModel)]="task.checked">
-                        <input [ngClass]="{'task__text--checked': task.checked}" class="task__text" type="text"  value={{task.taskName}}>
-                        <img (click)="delete($index)" class="task__img" src="../../assets/images/icon-cross.svg" alt="Close">
-        
-                    </li>
-                }
-                @if(activeStatus === "complete" && task.checked){
+            <li class="task field">
+                <input class="task__check" type="checkbox" [(ngModel)]="task.checked" (click)="storeChecked()">
+                <input [ngClass]="{'task__text--checked': task.checked}" [(ngModel)]="task.taskName" class="task__text" type="text"
+                    value={{task.taskName}}>
+                <img (click)="delete($index)" class="task__img" src="../../assets/images/icon-cross.svg" alt="Close">
 
-                    <li class="task field">
-                        <input class="task__check" type="checkbox" [(ngModel)]="task.checked">
-                        <input [ngClass]="{'task__text--checked': task.checked}" class="task__text" type="text" value={{task.taskName}}>
-                        <img (click)="delete($index)" class="task__img" src="../../assets/images/icon-cross.svg" alt="Close">
-        
-                    </li>
-                }
+            </li>
+            }
+            @if(activeStatus === "complete" && task.checked){
+
+            <li class="task field">
+                <input class="task__check" type="checkbox" [(ngModel)]="task.checked" (click)="storeChecked()">
+                <input [ngClass]="{'task__text--checked': task.checked}" class="task__text" type="text"
+                    value={{task.taskName}} readonly>
+                <img (click)="delete($index)" class="task__img" src="../../assets/images/icon-cross.svg" alt="Close">
+
+            </li>
+            }
             }
             <div class="info field">
                 <span class="info__left">Faltan varios</span>
@@ -48,9 +50,12 @@
         </ul>
 
         <div class="status field">
-            <span [ngClass]="{'status__active': activeStatus === 'all'}" (click)="statusActive('all')" class="status__span">All</span>
-            <span [ngClass]="{'status__active': activeStatus === 'active'}" (click)="statusActive('active')" class="status__span">Active</span>
-            <span [ngClass]="{'status__active': activeStatus === 'complete'}" (click)="statusActive('complete')" class="status__span">Completed</span>
+            <span [ngClass]="{'status__active': activeStatus === 'all'}" (click)="statusActive('all')"
+                class="status__span">All</span>
+            <span [ngClass]="{'status__active': activeStatus === 'active'}" (click)="statusActive('active')"
+                class="status__span">Active</span>
+            <span [ngClass]="{'status__active': activeStatus === 'complete'}" (click)="statusActive('complete')"
+                class="status__span">Completed</span>
         </div>
 
         <span class="
