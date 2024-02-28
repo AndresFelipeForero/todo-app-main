@@ -38,6 +38,14 @@ export class StoreService {
   delete(index: number){
     let current = this.taskStore$.getValue() 
     current.splice(index, 1)
-    localStorage.setItem("taskStorage", JSON.stringify(current))
+    localStorage.setItem("taksStore", JSON.stringify(current))
+    this.setProducts(current)
+  }
+
+  clearChecked(){
+    let current = this.taskStore$.getValue()
+    let activeTasks = current.filter(({checked}) => !checked)
+    localStorage.setItem("taksStore", JSON.stringify(activeTasks))
+    this.setProducts(activeTasks)
   }
 }

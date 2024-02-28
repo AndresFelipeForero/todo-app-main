@@ -28,12 +28,17 @@ export class TodoListComponent {
   ngOnInit() {
     this._store.getTaskList().subscribe((taskList) => {
       this.showTaskList$ = taskList
-      this.leftCounter = taskList.filter(({checked}) => checked === false).length
+      this.leftCounter = taskList.filter(({checked}) => !checked).length
     })
     
     let status = localStorage.getItem('status')
     if (status) {
       this.activeStatus = JSON.parse(status)
+    }
+
+    let theme = localStorage.getItem('theme')
+    if (theme) {
+      this.changedTheme = JSON.parse(theme)
     }
 
   }
@@ -58,10 +63,15 @@ export class TodoListComponent {
 
   changeTheme(){
     this.changedTheme = !this.changedTheme
+    localStorage.setItem('theme', JSON.stringify(this.changedTheme))
   }
 
   storeChecked(){
     this._store.storeChecked()
+  }
+
+  clearChecked(){
+    this._store.clearChecked()
   }
 
   

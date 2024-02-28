@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [ngClass]="{'dark-theme': changedTheme}">
     <div class="contain">
         <header>
             <h1>T&nbsp;O&nbsp;D&nbsp;O</h1>
@@ -45,7 +45,7 @@
             }
             <div class="info field">
                 <span class="info__left">{{leftCounter}} item left</span>
-                <span class="info__completeclear">Clear Completed</span>
+                <span class="info__completeclear" (click)="clearChecked()">Clear Completed</span>
             </div>
         </ul>
 
