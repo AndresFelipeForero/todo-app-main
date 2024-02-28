@@ -17,7 +17,7 @@
 
             <li class="task field">
                 <input class="task__check" type="checkbox" [(ngModel)]="task.checked" (ngModelChange)="storeChecked()">
-                <input [ngClass]="{'task__text--checked': task.checked}" [(ngModel)]="task.taskName" class="task__text"
+                <input [ngClass]="{'task__text--checked': task.checked}" [(ngModel)]="task.taskName" (ngModelChange)="edit()" class="task__text"
                     type="text" value={{task.taskName}}>
                 <img (click)="delete($index)" class="task__img" src="../../assets/images/icon-cross.svg" alt="Close">
             </li>

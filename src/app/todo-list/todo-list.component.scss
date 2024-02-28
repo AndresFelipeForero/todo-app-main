@@ -7,17 +7,6 @@
     font-size: "Josefin Sans", sans-serif;
 }
 
-.dark-theme {
-    --VeryLightGrayishBlue: hsl(235, 21%, 11%);
-    --VeryLightGray: hsl(235, 24%, 19%);
-    --LightGrayishBlue: hsl(234, 39%, 85%);
-    --DarkGrayishBlue: hsl(236, 33%, 92%);
-    --VeryDarkGrayishBlue: hsl(234, 11%, 67%);
-    --DarkGrayishBlue: hsl(234, 11%, 52%);
-    --VeryDarkGrayishB: hsl(233, 14%, 35%);
-    --LightGrayishBlue: hsl(237, 14%, 26%);
-}
-
 .container {
     width: 100%;
     min-height: 100vh;
@@ -63,7 +52,6 @@
             height: 23px;
             font-size: 29px;
             color: white;
-            
         }
 
         img {
@@ -171,4 +159,16 @@
         text-align: center;
         color: var(--DarkGrayishBlue);
     }
+}
+
+.dark-theme {
+    --VeryLightGrayishBlue: hsl(235, 21%, 11%);
+    --VeryLightGray: hsl(235, 24%, 19%);
+    --LightGrayishBlue: hsl(234, 39%, 85%);
+    --DarkGrayishBlue: hsl(236, 33%, 92%);
+    --VeryDarkGrayishBlue: hsl(234, 11%, 67%);
+    --DarkGrayishBlue: hsl(234, 11%, 52%);
+    --VeryDarkGrayishB: hsl(233, 14%, 35%);
+    --LightGrayishBlue: hsl(237, 14%, 26%);
+    background-image: url('../../assets/images/bg-mobile-dark.jpg');
 }

@@ -48,4 +48,9 @@ export class StoreService {
     localStorage.setItem("taksStore", JSON.stringify(activeTasks))
     this.setProducts(activeTasks)
   }
+
+  edit(){
+    let current = this.taskStore$.getValue()
+    this.setProducts(current)
+  }
 }

@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms'
-import { AsyncPipe, CommonModule, NgFor } from '@angular/common';
+import { AsyncPipe, CommonModule} from '@angular/common';
 import { StoreService } from '../services/store.service';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-todo-list',
   standalone: true,
-  imports: [FormsModule, CommonModule, NgFor, AsyncPipe],
+  imports: [FormsModule, CommonModule, AsyncPipe],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.scss',
 })
@@ -19,23 +19,25 @@ export class TodoListComponent {
   changedTheme: boolean = false;
   leftCounter: number = 0;
   
-  showTaskList: any[] = [];
+  subscription?: Subscription;
   showTaskList$?: any[];
 
   _store = inject(StoreService)
  
 
   ngOnInit() {
-    this._store.getTaskList().subscribe((taskList) => {
+    this.subscription = this._store.getTaskList().subscribe((taskList) => {
       this.showTaskList$ = taskList
       this.leftCounter = taskList.filter(({checked}) => !checked).length
     })
     
+    /* -------------set status in store--------------- */
     let status = localStorage.getItem('status')
     if (status) {
       this.activeStatus = JSON.parse(status)
     }
 
+    /* -------------set theme in store--------------- */
     let theme = localStorage.getItem('theme')
     if (theme) {
       this.changedTheme = JSON.parse(theme)
@@ -74,5 +76,11 @@ export class TodoListComponent {
     this._store.clearChecked()
   }
 
-  
+  edit(){
+    this._store.edit()
+  }
+
+  ngOnDestroy(){
+    this.subscription?.unsubscribe()
+  }
 }
