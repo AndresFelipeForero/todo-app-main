@@ -9,6 +9,7 @@
 
 .container {
     width: 100%;
+    min-width: 100vw;
     min-height: 100vh;
     background-color: var(--VeryLightGrayishBlue);
     background-image: url(../../assets/images/bg-mobile-light.jpg);
@@ -24,7 +25,7 @@
     min-height: 50px;
     width: 330px;
     background-color: var(--VeryLightGray);
-    color: var(--VeryDarkGrayishBlue);    
+    color: var(--VeryDarkGrayishBlue);
     width: 100%;
     align-items: center;
     padding: 0 21px;
@@ -33,7 +34,7 @@
 .contain {
     margin-top: 48px;
     width: 87.2%;
-    
+
     // height: 85%;
     min-height: fit-content;
     max-height: 90vh;
@@ -67,9 +68,9 @@
     }
 
     .list {
-        
+
         position: relative;
-        overflow-y: scroll;
+        overflow-y: auto;
         max-height: fit-content;
         // min-height: 320px;
         border-radius: 7px;
@@ -82,24 +83,27 @@
             border-bottom: 1px solid var(--VeryLightGrayishBlue);
 
             .task__check {
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                position: relative;
                 flex-grow: 0;
                 width: 20px;
                 height: 20px;
                 border-radius: 50%;
                 border: 1px solid var(--LightGrayishBlue);
-                appearance: none;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-
+                
+                cursor: pointer;
             }
 
             .task__check:checked {
-                background-image: 
-                url('../../assets/images/icon-check.svg'),
-                linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+                background-image:
+                    url('../../assets/images/icon-check.svg'),
+                    linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
                 background-repeat: no-repeat;
                 background-size: auto;
-                background-position: center, center, center;
+                background-position: center, center;
+                
             }
 
             .task__text {
@@ -113,6 +117,7 @@
                 appearance: none;
                 -webkit-appearance: none;
                 -moz-appearance: none;
+                cursor: pointer;
             }
 
             .task__text--checked {
@@ -124,6 +129,7 @@
                 flex-grow: 0;
                 width: 13px;
                 height: 13px;
+                cursor: pointer;
             }
 
 
@@ -138,6 +144,8 @@
             color: var(--DarkGrayishBlue);
             font-size: 10px;
             font-weight: 600;
+            white-space: nowrap;
+
         }
     }
 
@@ -171,4 +179,33 @@
     --VeryDarkGrayishB: hsl(233, 14%, 35%);
     --LightGrayishBlue: hsl(237, 14%, 26%);
     background-image: url('../../assets/images/bg-mobile-dark.jpg');
+}
+
+.attribution {
+    font-size: 11px;
+    text-align: center;
+}
+
+.attribution__dark {
+    color: var(--DarkGrayishBlue);
+}
+
+.attribution a {
+    color: hsl(228, 45%, 44%);
+}
+
+@media (min-width: 375px){
+
+    .container {
+        background-image: url('../../assets/images/bg-desktop-light.jpg');
+        background-size: 100%;
+    }
+
+    .field {
+        min-height: 65px;
+        max-height: 65px;
+    }
+    .contain {
+        max-width: 540px;
+    }
 }

@@ -45,21 +45,38 @@
             }
             <div class="info field">
                 <span class="info__left">{{leftCounter}} item left</span>
+                @if (mediaChanged >= 600) {
+                    <div class="status field">
+                        <span [ngClass]="{'status__active': activeStatus === 'all'}" (click)="statusActive('all')"
+                            class="status__span">All</span>
+                        <span [ngClass]="{'status__active': activeStatus === 'active'}" (click)="statusActive('active')"
+                            class="status__span">Active</span>
+                        <span [ngClass]="{'status__active': activeStatus === 'complete'}" (click)="statusActive('complete')"
+                            class="status__span">Completed</span>
+                    </div>
+                }
                 <span class="info__completeclear" (click)="clearChecked()">Clear Completed</span>
             </div>
         </ul>
 
-        <div class="status field">
-            <span [ngClass]="{'status__active': activeStatus === 'all'}" (click)="statusActive('all')"
-                class="status__span">All</span>
-            <span [ngClass]="{'status__active': activeStatus === 'active'}" (click)="statusActive('active')"
-                class="status__span">Active</span>
-            <span [ngClass]="{'status__active': activeStatus === 'complete'}" (click)="statusActive('complete')"
-                class="status__span">Completed</span>
-        </div>
+        @if (mediaChanged < 600) {
+            <div class="status field">
+                <span [ngClass]="{'status__active': activeStatus === 'all'}" (click)="statusActive('all')"
+                    class="status__span">All</span>
+                <span [ngClass]="{'status__active': activeStatus === 'active'}" (click)="statusActive('active')"
+                    class="status__span">Active</span>
+                <span [ngClass]="{'status__active': activeStatus === 'complete'}" (click)="statusActive('complete')"
+                    class="status__span">Completed</span>
+            </div>
+        }
+        
 
         <span class="
         helptext">Drag and drop to reorder list</span>
+        <div class="attribution" [ngClass]="{'attribution__dark': changeTheme}">
+            Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+            Coded by <a href="#">Andrés Felipe Forero Velásquez</a>.
+          </div>
 
     </div>
 </div>

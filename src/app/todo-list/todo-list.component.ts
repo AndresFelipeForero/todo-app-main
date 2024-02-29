@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms'
 import { AsyncPipe, CommonModule} from '@angular/common';
 import { StoreService } from '../services/store.service';
@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 
 export class TodoListComponent {
   
+  mediaChanged!: number;
   activeStatus: string = "all";
   newTaskInput!: string;
   changedTheme: boolean = false;
@@ -30,6 +31,8 @@ export class TodoListComponent {
       this.showTaskList$ = taskList
       this.leftCounter = taskList.filter(({checked}) => !checked).length
     })
+
+    this.mediaChanged = window.innerWidth
     
     /* -------------set status in store--------------- */
     let status = localStorage.getItem('status')
@@ -43,6 +46,12 @@ export class TodoListComponent {
       this.changedTheme = JSON.parse(theme)
     }
 
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any){
+    this.mediaChanged = window.innerWidth;
+    console.log(this.mediaChanged, event)
   }
 
   addTask(taskName: string) {
@@ -79,6 +88,8 @@ export class TodoListComponent {
   edit(){
     this._store.edit()
   }
+
+  
 
   ngOnDestroy(){
     this.subscription?.unsubscribe()
