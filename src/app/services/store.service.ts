@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Task } from '../models/task';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoreService {
 
-  private taskStore$ = new BehaviorSubject<any[]>([])
+  private taskStore$ = new BehaviorSubject<Task[]>([])
 
   constructor() { 
     let tasksStore = localStorage.getItem('taksStore')
@@ -19,13 +20,13 @@ export class StoreService {
     return this.taskStore$.asObservable();
   }
 
-  private setProducts(taskList: any[]) {
+  private setProducts(taskList: Task[]) {
     this.taskStore$.next([...taskList]);
     localStorage.setItem('taksStore', JSON.stringify(taskList))
   }
   
 
-  addTask(task: any){
+  addTask(task: Task){
     let current = this.taskStore$.getValue()
     this.setProducts([task, ...current])
   }

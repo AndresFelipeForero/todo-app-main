@@ -13,7 +13,7 @@
     min-height: 100vh;
     background-color: var(--VeryLightGrayishBlue);
     background-image: url(../../assets/images/bg-mobile-light.jpg);
-    background-size: 375px;
+    background-size: 100%;
     background-position: top;
     background-repeat: no-repeat;
     display: grid;
@@ -58,6 +58,7 @@
         img {
             width: 23px;
             height: 23px;
+            cursor: pointer;
         }
     }
 
@@ -194,11 +195,15 @@
     color: hsl(228, 45%, 44%);
 }
 
-@media (min-width: 375px){
+
+@media (min-width: 700px){
 
     .container {
         background-image: url('../../assets/images/bg-desktop-light.jpg');
-        background-size: 100%;
+    }
+
+    .dark-theme {
+        background-image: url('../../assets/images/bg-desktop-dark.jpg');
     }
 
     .field {
@@ -206,6 +211,33 @@
         max-height: 65px;
     }
     .contain {
+        margin-top: 78px;
         max-width: 540px;
+        gap: 24px;
+
+        header {
+            margin-bottom: 24px;
+
+            h1 {
+                font-size: 38px;
+            } 
+
+            img {
+                height: 30px;
+                width: 30px;
+            }
+        }
+
+        .info {
+            .status__span:hover {
+                cursor: pointer;
+                color: var(--VeryDarkGrayishBlue);
+            }
+
+            .info__completeclear:hover {
+                cursor: pointer;
+                color: var(--VeryDarkGrayishBlue);
+            }
+        }
     }
 }

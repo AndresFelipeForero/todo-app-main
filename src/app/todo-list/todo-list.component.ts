@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms'
 import { AsyncPipe, CommonModule} from '@angular/common';
 import { StoreService } from '../services/store.service';
 import { Subscription } from 'rxjs';
+import { Task } from '../models/task';
 
 @Component({
   selector: 'app-todo-list',
@@ -21,7 +22,7 @@ export class TodoListComponent {
   leftCounter: number = 0;
   
   subscription?: Subscription;
-  showTaskList$?: any[];
+  showTaskList$?: Task[];
 
   _store = inject(StoreService)
  
