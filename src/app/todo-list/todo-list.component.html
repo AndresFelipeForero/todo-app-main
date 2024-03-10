@@ -8,7 +8,7 @@
             <img (click)="changeTheme()" src="../../assets/images/icon-sun.svg" alt="light theme">
             }
         </header>
-        <input class="newtask  field" type="text" placeholder="Create a new todo..." (keydown.enter)="addTask(newTaskInput)"
+        <input class="newtask  field" type="text" placeholder="Create a new todo..." (keyup.enter)="addTask(newTaskInput)"
             [(ngModel)]="newTaskInput">
 
         <ul class="list" cdkDropList (cdkDropListDropped)="drop($event)">
