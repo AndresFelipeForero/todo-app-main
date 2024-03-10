@@ -54,4 +54,8 @@ export class StoreService {
     let current = this.taskStore$.getValue()
     this.setProducts(current)
   }
+
+  dropUpdate(list:Task[]){
+    this.setProducts(list)
+  }
 }

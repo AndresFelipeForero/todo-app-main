@@ -11,11 +11,11 @@
         <input class="newtask  field" type="text" placeholder="Create a new todo..." (keydown.enter)="addTask(newTaskInput)"
             [(ngModel)]="newTaskInput">
 
-        <ul class="list">
+        <ul class="list" cdkDropList (cdkDropListDropped)="drop($event)">
             @for (task of showTaskList$; track $index) {
             @if(activeStatus === "all"){
 
-            <li class="task field">
+            <li class="task field" cdkDrag>
                 <input class="task__check" type="checkbox" [(ngModel)]="task.checked" (ngModelChange)="storeChecked()">
                 <input [ngClass]="{'task__text--checked': task.checked}" [(ngModel)]="task.taskName" (ngModelChange)="edit()" class="task__text"
                     type="text" value={{task.taskName}}>
@@ -37,7 +37,7 @@
             <li class="task field">
                 <input class="task__check" type="checkbox" [(ngModel)]="task.checked" (ngModelChange)="storeChecked()">
                 <input [ngClass]="{'task__text--checked': task.checked}" class="task__text" type="text"
-                    value={{task.taskName}} readonly>
+                    value={{task.taskName}} disabled>
                 <img (click)="delete($index)" class="task__img" src="../../assets/images/icon-cross.svg" alt="Close">
 
             </li>
@@ -72,7 +72,7 @@
         
 
         <span class="
-        helptext">Drag and drop to reorder list</span>
+        helptext">Drag and drop to reorder list, double click to edit task. </span>
         <div class="attribution" [ngClass]="{'attribution__dark': changeTheme}">
             Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
             Coded by <a href="#">Andrés Felipe Forero Velásquez</a>.

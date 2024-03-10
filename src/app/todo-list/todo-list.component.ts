@@ -1,20 +1,22 @@
-import { Component, HostListener, inject } from '@angular/core';
+import { Component, HostListener, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms'
 import { AsyncPipe, CommonModule} from '@angular/common';
 import { StoreService } from '../services/store.service';
 import { Subscription } from 'rxjs';
 import { Task } from '../models/task';
+import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-todo-list',
   standalone: true,
-  imports: [FormsModule, CommonModule, AsyncPipe],
+  imports: [FormsModule, CommonModule, AsyncPipe, CdkDropList, CdkDrag],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.scss',
 })
 
 export class TodoListComponent {
   
+  inputDisable: boolean = true;
   mediaChanged!: number;
   activeStatus: string = "all";
   newTaskInput!: string;
@@ -25,6 +27,13 @@ export class TodoListComponent {
   showTaskList$?: Task[];
 
   _store = inject(StoreService)
+
+  drop(event: CdkDragDrop<Task[]>) {
+    if (this.showTaskList$) {
+      moveItemInArray(this.showTaskList$, event.previousIndex, event.currentIndex);
+      this._store.dropUpdate(this.showTaskList$)
+    }
+  }
  
 
   ngOnInit() {
@@ -90,7 +99,10 @@ export class TodoListComponent {
     this._store.edit()
   }
 
-  
+  editable(){
+    this.inputDisable = !this.inputDisable
+    console.log(this.inputDisable)
+  }
 
   ngOnDestroy(){
     this.subscription?.unsubscribe()
