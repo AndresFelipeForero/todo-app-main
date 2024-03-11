@@ -1,4 +1,4 @@
-import { Component, HostListener, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms'
 import { AsyncPipe, CommonModule} from '@angular/common';
 import { StoreService } from '../services/store.service';
@@ -16,7 +16,7 @@ import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk
 
 export class TodoListComponent {
   
-  inputDisable: boolean = true;
+  @ViewChild('newTask') newTaskElement!: ElementRef;
   mediaChanged!: number;
   activeStatus: string = "all";
   newTaskInput!: string;
@@ -27,6 +27,7 @@ export class TodoListComponent {
   showTaskList$?: Task[];
 
   _store = inject(StoreService)
+  element = inject(ElementRef)
 
   drop(event: CdkDragDrop<Task[]>) {
     if (this.showTaskList$) {
@@ -61,7 +62,6 @@ export class TodoListComponent {
   @HostListener('window:resize', ['$event'])
   onResize(event: any){
     this.mediaChanged = window.innerWidth;
-    console.log(this.mediaChanged, event)
   }
 
   addTask(taskName: string) {
@@ -99,9 +99,8 @@ export class TodoListComponent {
     this._store.edit()
   }
 
-  editable(){
-    this.inputDisable = !this.inputDisable
-    console.log(this.inputDisable)
+  taskTarget(){
+    this.newTaskElement.nativeElement.focus()
   }
 
   ngOnDestroy(){

@@ -8,7 +8,7 @@
             <img (click)="changeTheme()" src="../../assets/images/icon-sun.svg" alt="light theme">
             }
         </header>
-        <input class="newtask  field" type="text" placeholder="Create a new todo..." (keyup.enter)="addTask(newTaskInput)"
+        <input class="newtask  field" #newTask autofocus type="text" placeholder="Create a new todo..." (keyup.enter)="addTask(newTaskInput)"
             [(ngModel)]="newTaskInput">
 
         <ul class="list" cdkDropList (cdkDropListDropped)="drop($event)">
@@ -18,7 +18,7 @@
             <li class="task field" cdkDrag>
                 <input class="task__check" type="checkbox" [(ngModel)]="task.checked" (ngModelChange)="storeChecked()">
                 <input [ngClass]="{'task__text--checked': task.checked}" [(ngModel)]="task.taskName" (ngModelChange)="edit()" class="task__text"
-                    type="text" value={{task.taskName}}>
+                    type="text" value={{task.taskName}} (keyup.enter)="taskTarget()">
                 <img (click)="delete($index)" class="task__img" src="../../assets/images/icon-cross.svg" alt="Close">
             </li>
             }
@@ -27,7 +27,7 @@
             <li class="task field">
                 <input class="task__check" type="checkbox" [(ngModel)]="task.checked" (ngModelChange)="storeChecked()">
                 <input [ngClass]="{'task__text--checked': task.checked}" [(ngModel)]="task.taskName" class="task__text" type="text"
-                    value={{task.taskName}}>
+                    value={{task.taskName}} (keyup.enter)="taskTarget()">
                 <img (click)="delete($index)" class="task__img" src="../../assets/images/icon-cross.svg" alt="Close">
 
             </li>
