@@ -70,7 +70,7 @@
 
         position: relative;
         overflow-y: auto;
-        max-height: fit-content;
+        max-height: 390px;
         border-radius: 7px;
 
         .task {
@@ -247,6 +247,14 @@
 }
 
 @media (min-width: 700px) {
+
+    .list::-webkit-scrollbar{
+        width: 5px;
+    }
+    
+    .list::-webkit-scrollbar-thumb{
+        background: var(--DarkGrayishBlue);
+    }
 
     .container {
         background-image: url('../../assets/images/bg-desktop-light.jpg');
