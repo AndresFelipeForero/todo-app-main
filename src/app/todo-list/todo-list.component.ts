@@ -22,6 +22,7 @@ export class TodoListComponent {
   newTaskInput!: string;
   changedTheme: boolean = false;
   leftCounter: number = 0;
+  readOnlyProperty = true;
   
   subscription?: Subscription;
   showTaskList$?: Task[];
@@ -57,11 +58,14 @@ export class TodoListComponent {
       this.changedTheme = JSON.parse(theme)
     }
 
+    this.readOnly()
+
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any){
     this.mediaChanged = window.innerWidth;
+    this.readOnly()
   }
 
   addTask(taskName: string) {
@@ -101,6 +105,14 @@ export class TodoListComponent {
 
   taskTarget(){
     this.newTaskElement.nativeElement.focus()
+  }
+
+  readOnly(){
+    if (this.mediaChanged <= 700) {
+      this.readOnlyProperty = true
+    } else {
+      this.readOnlyProperty = false
+    }
   }
 
   ngOnDestroy(){
